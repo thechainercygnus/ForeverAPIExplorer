@@ -1,5 +1,10 @@
 # Forever API Explorer
 
+An in-game research tool for WoW: Forever. It records which Lua APIs the client
+exposes and what they return, so the
+[export addon](https://github.com/thechainercygnus/character-planner-export) is built
+on evidence, not guesses.
+
 ## Install and capture
 
 Copy the complete `ForeverAPIExplorer` folder (including `CharacterCapture.lua`) into your Forever client's `Interface/AddOns` folder, replacing the previous version. Restart the client or reload the UI.
@@ -9,7 +14,7 @@ Copy the complete `ForeverAPIExplorer` folder (including `CharacterCapture.lua`)
 - `/api clearcharacter` removes only the character snapshot.
 - `/api export`, `/api status`, `/api clear` retain the existing environment discovery behavior.
 
-Wait for completion, then `/reload` or log out normally to persist SavedVariables. Run `RetrieveOutput.ps1` to copy the file. Both independent globals are saved in the same `ForeverAPIExplorer.lua` SavedVariables file: `ForeverAPIExplorerDB` (environment) and `ForeverAPIExplorerCharacterDB` (character). Each capture replaces only its own previous snapshot. The Forever API Atlas importer accepts original environment-only and combined files. With the separate ForeverAPIAtlas checkout beside this repository, run `python ../ForeverAPIAtlas/scripts/import_dump.py data/<dump>.lua ../ForeverAPIAtlas/dist/catalog.json` to refresh both the catalog and `character.json`; it validates query counts and preserves typed returns. An environment-only import clears stale character evidence.
+Wait for completion, then `/reload` or log out normally to persist SavedVariables. Run `RetrieveOutput.ps1` to copy the file. Dumps in `data/` stay local: the folder is gitignored, because captures hold character names and GUIDs. Both independent globals are saved in the same `ForeverAPIExplorer.lua` SavedVariables file: `ForeverAPIExplorerDB` (environment) and `ForeverAPIExplorerCharacterDB` (character). Each capture replaces only its own previous snapshot. The Forever API Atlas importer accepts original environment-only and combined files. With the separate (private) ForeverAPIAtlas checkout beside this repository, run `python ../ForeverAPIAtlas/scripts/import_dump.py data/<dump>.lua ../ForeverAPIAtlas/dist/catalog.json` to refresh both the catalog and `character.json`; it validates query counts and preserves typed returns. An environment-only import clears stale character evidence.
 
 ## Character format (schema 1)
 
@@ -34,3 +39,8 @@ The modern profession, reputation and currency candidates follow Blizzard's gene
 ## Profiles and snapshot comparisons
 
 The private atlas now provides normalized profiles, snapshot history, per-field source evidence and before/after comparisons. Existing imports append history automatically. To import all retained dumps, run `python ../ForeverAPIAtlas/scripts/build_profiles.py data ../ForeverAPIAtlas/dist`. See PROFILE_FORMAT.md in the atlas checkout for schema, comparison semantics and validation commands. No new addon version or game capture is required.
+
+## License
+
+[MIT](LICENSE). World of Warcraft names and game data belong to Blizzard
+Entertainment. This project isn't affiliated with or endorsed by Blizzard.
