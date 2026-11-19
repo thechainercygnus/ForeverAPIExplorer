@@ -1,3 +1,4 @@
 .test-deps/
 __pycache__/
 *.tar.gz
+data/
